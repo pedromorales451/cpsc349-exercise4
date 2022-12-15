@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 21 - Project 2</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+
+<body>
+    <nav class="w-full bg-gray-900 py-6 flex justify-between px-8">
+        <a class="font-medium text-white" href="./landing.html">Reading List App</a>
+        <div class="space-x-6">
+            <a class="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white" href="./signup.html">
+                Sign Up
+            </a>
+            <a class="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white" href="./login.html">
+                Log In
+            </a>
+        </div>
+    </nav>
+    <main class="mx-auto w-full max-w-md mt-6">
+
+        <div class="flex justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-12 h-12">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+        </div>
+
+        <div class="mt-6">
+            <h1 class="text-3xl font-bold">Login</h1>
+            <p class="text-gray-600">Don&apos;t have an account?
+                <a class="text-blue-400 hover:underline" href="./signup.html">Sign Up →</a>
+            </p>
+        </div>
+
+        <form class="space-y-6 mt-6">
+            <div>
+                <label for="username" class="block text-lg font-medium text-gray-700">Username</label>
+                <div class="mt-1">
+                    <input type="text" id="username" name="username"
+                        class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
+                        placeholder="username" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="block text-lg font-medium text-gray-700">Password</label>
+                <div class="mt-1">
+                    <input type="password" id="password" name="password"
+                        class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
+                        placeholder="password" required>
+                </div>
+            </div>
+
+            <a class="text-blue-400 hover:underline">Forgot your password?</a>
+
+            <div class="flex justify-end">
+                <button class="rounded-full px-5 py-2 font-medium bg-blue-400 text-white hover:bg-blue-500">Log In
+                    →</button>
+                </div>
+        </form>
+    </main>
+</body>
+
+</html>
