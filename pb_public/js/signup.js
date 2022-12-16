@@ -2,7 +2,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 
 const submitButton = document.getElementById('sign-up-submit')
 
-submitButton.addEventListener('click', async () => {
+submitButton.addEventListener('click', async (event) => {
   const userVal = document.getElementById('username').value
   const emailVal = document.getElementById('email').value
   const passwordVal = document.getElementById('password').value
@@ -15,5 +15,12 @@ submitButton.addEventListener('click', async () => {
       password: passwordVal,
       passwordConfirm: confirmPass
     });
+  } else {
+    event.preventDefault();
+    if (passwordVal !== confirmPass) {
+      alert("Passwords Do Not Match.")
+    }
   }
+
+
 });
