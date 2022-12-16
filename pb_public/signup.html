@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 21 - Project 2</title>
     <link rel="stylesheet" href="./output.css">
+    <script crossorigin defer src="https://unpkg.com/pocketbase@0.8.3/dist/pocketbase.umd.js"></script>
+    <script defer src="/js/signup.js"></script>
 </head>
 
 <body> 
     <nav class="w-full bg-gray-900 py-6 flex justify-between px-8">
-        <a class="font-medium text-white" href="./landing.html">Reading List App</a>
+        <a class="font-medium text-white" href="/">Reading List App</a>
         <div class="space-x-6">
             <a class="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white" href="./signup.html">
                 Sign Up
@@ -38,11 +40,11 @@
             </p>
         </div>
 
-        <form class="space-y-6 mt-6">
+        <form class="space-y-6 mt-6" id="signup">
             <div>
                 <label for="username" class="block text-lg font-medium text-gray-700">Username</label>
                 <div class="mt-1">
-                    <input type="text" id="username" name="username"
+                    <input type="text" id="username" name="username" minlength="3"
                         class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
                         placeholder="username" required>
                 </div>
@@ -51,7 +53,7 @@
             <div>
                 <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
                 <div class="mt-1">
-                    <input type="email" id="email" name="email"
+                    <input type="email" id="email" name="email" minlength="8"
                         class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
                         placeholder="your@email.com" required>
                 </div>
@@ -60,13 +62,22 @@
             <div>
                 <label for="password" class="block text-lg font-medium text-gray-700">Password</label>
                 <div class="mt-1">
-                    <input type="password" id="password" name="password"
+                    <input type="password" id="password" name="password" autocomplete="on" minlength="8"
                         class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
                         placeholder="password" required>
                 </div>
             </div>
 
-            <div class="flex justify-end">
+            <div>
+                <label for="confirm-password" class="block text-lg font-medium text-gray-700">Confirm Password</label>
+                <div class="mt-1">
+                    <input type="password" id="confirm-password" name="confirm-password" autocomplete="on" minlength="8"
+                        class="w-full border border-gray-400 block bg-gray-100 rounded-md p-2 text-sm"
+                        placeholder="confirm password" required>
+                </div>
+            </div>
+
+            <div class="flex justify-end" id="sign-up-submit">
                 <button class="rounded-full px-5 py-2 font-medium bg-blue-400 text-white hover:bg-blue-500">
                     Sign up →
                 </button>

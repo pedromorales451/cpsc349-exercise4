@@ -7,8 +7,8 @@ submitButton.addEventListener('click', async () => {
   const emailVal = document.getElementById('email').value
   const passwordVal = document.getElementById('password').value
   const confirmPass = document.getElementById('confirm-password').value
-
-  if (!(userVal === '' || emailVal === '' || passwordVal === '' || confirmPass === '' || passwordVal !== confirmPass)) {
+  
+  if (!(userVal.length < 3 || userVal === '' || emailVal === '' || passwordVal === '' || confirmPass === '' || passwordVal !== confirmPass)) {
     const record = await pb.collection('users').create({
       username: userVal,
       email: emailVal, 
