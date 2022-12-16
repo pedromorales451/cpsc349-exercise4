@@ -24,15 +24,9 @@ return (
     <div className="space-x-6">
       <a
         className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white"
-        href="./signup.html"
-      >
-        Sign Up
-      </a>
-      <a
-        className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white"
         href="./login.html"
       >
-        Log In
+        Log Out
       </a>
     </div>
   </nav>
