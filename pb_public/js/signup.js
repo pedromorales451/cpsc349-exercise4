@@ -16,11 +16,9 @@ submitButton.addEventListener('click', async (event) => {
       passwordConfirm: confirmPass
     });
   } else {
-    event.preventDefault();
     if (passwordVal !== confirmPass) {
       alert("Passwords Do Not Match.")
+      event.preventDefault();
     }
   }
-
-
 });
