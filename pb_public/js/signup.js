@@ -9,16 +9,21 @@ submitButton.addEventListener('click', async (event) => {
   const confirmPass = document.getElementById('confirm-password').value
   
   if (!(userVal.length < 3 || userVal === '' || emailVal === '' || passwordVal === '' || confirmPass === '' || passwordVal !== confirmPass)) {
-    const record = await pb.collection('users').create({
-      username: userVal,
-      email: emailVal, 
-      password: passwordVal,
-      passwordConfirm: confirmPass
-    });
+    try {
+      const record = await pb.collection('users').create({
+        username: userVal,
+        email: emailVal, 
+        password: passwordVal,
+        passwordConfirm: confirmPass
+      });
+    } catch (error) {
+      alert("Account cannot be created.")
+      event.preventDefault()
+    }
   } else {
     if (passwordVal !== confirmPass) {
       alert("Passwords Do Not Match.")
-      event.preventDefault();
+      event.preventDefault()
     }
   }
 });

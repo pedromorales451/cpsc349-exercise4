@@ -1,35 +1,34 @@
-const USERNAME = 'pedrom2@csu.fullerton.edu'
-const PASSWORD = '4!P_031dk1a(31'
-
 const pb = new PocketBase('http://127.0.0.1:8090')
 
-const authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
-console.log(authData)
-
-console.log("hello there")
-
-console.log(pb.authStore.isValid);
-console.log(pb.authStore.token);
-console.log(pb.authStore.model.id);
-
-const record1 = await pb.collection('users').getOne(pb.authStore.model.id
-);
-
-
+if (pb.authStore.isValid) {
+console.log(pb.authStore.model.email);
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
   <React.StrictMode>
-    <App />
-    <App />
+    <Greeting />
   </React.StrictMode>
 )
+} else {
+  window.location.replace('./login.html')
+}
 
 function App () {
   return (
     <div className='App'>
       <h1>Hello, {authData.admin.email}</h1>
+    </div>
+  )
+}
+
+function Greeting () {
+  return (
+    <div className="mt-6 space-y-2">
+      <h1 className="text-3xl font-bold">{pb.authStore.model.username}'s Reading List</h1>
+      <p className="text-medium text-gray-500 hover:bg-gray-200">
+        This user has not entered a bio yet.
+      </p>
     </div>
   )
 }
