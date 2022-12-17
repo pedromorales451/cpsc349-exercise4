@@ -2,9 +2,10 @@
 module.exports = {
   content: [    
     './pb_public/*.{html, js, jsx}',
+    './src/app.jsx'
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }

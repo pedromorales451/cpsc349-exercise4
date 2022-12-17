@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/pedromorales451/cpsc349-exercise4#readme",
   "dependencies": {
+    "daisyui": "^2.45.0",
     "esbuild": "0.16.1"
   },
   "devDependencies": {
