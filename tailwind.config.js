@@ -2,7 +2,7 @@
 module.exports = {
   content: [    
     './pb_public/*.{html, js, jsx}',
-    './src/app.jsx'
+    './src/*.jsx'
   ],
   theme: {
     extend: {},

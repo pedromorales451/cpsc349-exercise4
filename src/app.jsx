@@ -13,7 +13,6 @@ root.render(
 }
 
 function App () {
-  <script defer src="./js/lists.js"></script>
 return (
   <>
   <nav className="w-full bg-gray-900 py-6 flex justify-between px-8">
@@ -108,51 +107,61 @@ return (
 
 function Bio () {
   let bio = ''
-  console.log(pb.authStore.bio)
-  if (pb.authStore.bio === undefined) {
+  pb.collection('users').subscribe(pb.authStore.model.id, function (e) {
+    document.getElementById('bio').innerHTML = e.record.bio
+  });
+
+  if (pb.authStore.model.bio === '') {
     bio = 'This user has not entered a bio yet.'
   } else {
-    bio = pb.authStore.bio
+    bio = pb.authStore.model.bio
   }
   return (
     <>
-    <div className="relative">
-      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200">
+    <div className="flex justify-evenly">
+      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200 w-full">
       {bio}
       </p>
-      <Form/>
+      <BioForm title="Edit Your Bio!" collection="users" content={bio}/>
     </div>
     </>
   )
 }
 
-function Form () {
+function BioForm ({ title, collection, content}) {
   return (
   <>
-    {/* The button to open modal */}
-    <label htmlFor="my-modal-4" className="absolute bottom-0 right-0 p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+    <label htmlFor="my-modal-4" className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
     Edit
     </label>
-    {/* Put this part before </body> tag */}
+
     <input type="checkbox" id="my-modal-4" className="modal-toggle" />
     <label htmlFor="my-modal-4" className="modal cursor-pointer">
       <label className="modal-box relative" htmlFor="">
-        <h3 className="text-lg font-bold">
-          Congratulations random Internet user!
+        <h3 className="text-lg font-bold pb-4">
+          {title}
         </h3>
-        <p className="py-4">
-          You've been selected for a chance to get one year of subscription to use
-          Wikipedia for free!
-        </p>
+        <textarea id="text-area" className="w-full h-52 bg-blue-100 p-2" defaultValue={content}/>
+        <button className="btn bg-gray-900 text-white hover:bg-gray-700" onClick={updateBio}>
+          Submit
+        </button>
       </label>
     </label>
   </>
   )
 }
 
-function EditBio () {
-  console.log("click")
-}
+async function updateBio () {
+  const content = document.getElementById('text-area').value
+
+  try { 
+    const record = await pb.collection('users').update(pb.authStore.model.id, {
+      bio: content
+    });
+  } catch (error) {
+    console.log("Error Occured While Trying to Update Record.")
+  }
+} 
 
 function addSubject () {
   console.log("click")
