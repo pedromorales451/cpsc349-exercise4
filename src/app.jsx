@@ -13,6 +13,7 @@ root.render(
 }
 
 function App () {
+  <script defer src="./js/lists.js"></script>
 return (
   <>
   <nav className="w-full bg-gray-900 py-6 flex justify-between px-8">
@@ -21,63 +22,81 @@ return (
     </a>
     <div className="space-x-6">
       <a
-        className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white"
-        href="./login.html"
+      className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white"
+      href="./login.html"
       >
-        Log Out
-      </a>
-    </div>
+      Log Out
+    </a>
+  </div>
   </nav>
   <main className="max-w-3xl mx-auto">
     <div className="mt-6 space-y-2">
       <h1 className="text-3xl font-bold">{pb.authStore.model.username}'s Reading List</h1>
       <Bio />
     </div>
-    <div>
-      <section>
-        <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-          <h3 className="text-xl font-medium">Subject #1</h3>
-          <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
-            New Reading
-          </button>
-        </div>
-        <div className="mt-6 w-full space-y-6">
-          <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
-            <div className="flex justify-between">
-              <h4 className="font-medium">Reading #1</h4>
-              <p className="text-gray-500">http://some-url.com</p>
-            </div>
-            <p className="text-gray-400">A short description of the reading.</p>
+    <div id = "pt">
+      <ul id = "subjects">
+        <li id = "subject">
+          <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
+            <h3 className="text-xl font-medium">Subject #1</h3>
+            <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+              New Reading
+            </button>
           </div>
-          <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
-            <div className="flex justify-between">
-              <h4 className="font-medium">Reading #2</h4>
-              <p className="text-gray-500">http://some-other-url.com</p>
-            </div>
-            <p className="text-gray-400">A short description of the reading.</p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-          <h3 className="text-xl font-medium">Subject #2</h3>
-          <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
-            New Reading
-          </button>
-        </div>
-        <div className="mt-6 w-full space-y-6">
-          <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
-            <div className="flex justify-between">
-              <h4 className="font-medium">Reading #1</h4>
-              <p className="text-gray-500">http://some-url.com</p>
-            </div>
-            <p className="text-gray-400">A short description of the reading.</p>
-          </div>
-        </div>
-      </section>
+          <ul id = "readings">
+            <li>
+              <div className="mt-6 w-full space-y-6">
+                <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
+                  <div className="flex justify-between">
+                    <h4 className="font-medium">Reading #1</h4>
+                    <p className="text-gray-500">http://some-url.com</p>
+                  </div>
+                  <p className="text-gray-400">A short description of the reading.</p>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div className="mt-6 w-full space-y-6">
+                <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
+                  <div className="flex justify-between">
+                    <h4 className="font-medium">Reading #2</h4>
+                    <p className="text-gray-500">http://some-other-url.com</p>
+                  </div>
+                  <p className="text-gray-400">A short description of the reading.</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+      <li id = "subject">
+          <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
+                <h3 className="text-xl font-medium">Subject #2</h3>
+                <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+                  New Reading
+                </button>
+              </div>
+        <ul>
+          <li>
+              <div className="mt-6 w-full space-y-6">
+                <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
+                  <div className="flex justify-between">
+                    <h4 className="font-medium">Reading #1</h4>
+                    <p className="text-gray-500">http://some-url.com</p>
+                  </div>
+                  <p className="text-gray-400">A short description of the reading.</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li id = "currentSubli"> </li>
+      </ul>
+
     </div>
     <div className="flex justify-end mt-8">
-      <button className="px-3 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-500">
+      <button onClick={() => addSubject()} id = "subjectbtn" className="px-3 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-500">
         Add A New Subject
       </button>
     </div>
@@ -88,60 +107,81 @@ return (
 
 function Bio () {
   let bio = ''
-  pb.collection('users').subscribe(pb.authStore.model.id, function (e) {
-    document.getElementById('bio').innerHTML = e.record.bio
-  });
-
-  if (pb.authStore.model.bio === '') {
+  console.log(pb.authStore.bio)
+  if (pb.authStore.bio === undefined) {
     bio = 'This user has not entered a bio yet.'
   } else {
-    bio = pb.authStore.model.bio
+    bio = pb.authStore.bio
   }
   return (
     <>
-    <div className="flex justify-evenly">
-      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200 w-full">
+    <div className="relative">
+      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200">
       {bio}
       </p>
-      <Form title="Edit Your Bio!" collection="users" content={bio}/>
+      <Form/>
     </div>
     </>
   )
 }
 
-function Form ({ title, collection, content}) {
+function Form () {
   return (
   <>
     {/* The button to open modal */}
-    <label htmlFor="my-modal-4" className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+    <label htmlFor="my-modal-4" className="absolute bottom-0 right-0 p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
     Edit
     </label>
     {/* Put this part before </body> tag */}
     <input type="checkbox" id="my-modal-4" className="modal-toggle" />
     <label htmlFor="my-modal-4" className="modal cursor-pointer">
       <label className="modal-box relative" htmlFor="">
-        <h3 className="text-lg font-bold pb-4">
-          {title}
+        <h3 className="text-lg font-bold">
+          Congratulations random Internet user!
         </h3>
-        <textarea id="text-area" className="w-full h-52 bg-blue-100 p-2" defaultValue={content}/>
-        <button className="btn bg-gray-900 text-white hover:bg-gray-700" onClick={updateBio}>
-          Submit
-        </button>
+        <p className="py-4">
+          You've been selected for a chance to get one year of subscription to use
+          Wikipedia for free!
+        </p>
       </label>
     </label>
   </>
   )
 }
 
-async function updateBio () {
-  const content = document.getElementById('text-area').value
+function EditBio () {
+  console.log("click")
+}
 
-  try { 
-    const record = await pb.collection('users').update(pb.authStore.model.id, {
-      bio: content
-    });
-  } catch (error) {
-    console.log("Error Occured While Trying to Update Record.")
-  }
-} 
+function addSubject () {
 
+  console.log("click")
+  const div = document.createElement('div')
+  const subjectli = document.createElement('li')
+  subjectli.setAttribute('id','subject')
+  const readingul = document.createElement('ul')
+  const readingli = document.createElement('li')
+  const h3 = document.createElement('h3')
+  const btn = document.createElement('button')
+
+  var subcount = document.getElementById('pt').getElementsByTagName('li')
+  const sb = document.querySelector('#subjects')
+  var sbcount = sb.querySelectorAll('ul#subjects > li')
+  console.log(sbcount)
+  console.log(sbcount.length)
+  console.log(subcount.length)
+
+  const content = document.createTextNode('Subject')
+  h3.appendChild(content)
+  const contentbtn = document.createTextNode('New Reading')
+  btn.appendChild(contentbtn)
+  subjectli.appendChild(h3)
+  subjectli.appendChild(btn)
+  readingul.appendChild(readingli)
+  subjectli.appendChild(readingul)
+  const ptDiv = document.getElementById('pt')
+  const currentSubli = document.getElementById('currentSubli')
+  //console.log(currentSubli)
+  ptDiv.insertBefore(subjectli, currentSubli.nextSibing)
+
+}
