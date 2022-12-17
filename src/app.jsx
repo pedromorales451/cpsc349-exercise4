@@ -91,7 +91,7 @@ function Bio () {
   pb.collection('users').subscribe(pb.authStore.model.id, function (e) {
     document.getElementById('bio').innerHTML = e.record.bio
   });
-  
+
   if (pb.authStore.model.bio === '') {
     bio = 'This user has not entered a bio yet.'
   } else {
@@ -99,8 +99,8 @@ function Bio () {
   }
   return (
     <>
-    <div className="relative">
-      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200">
+    <div className="flex justify-evenly">
+      <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200 w-full">
       {bio}
       </p>
       <Form title="Edit Your Bio!" collection="users" content={bio}/>
@@ -113,7 +113,7 @@ function Form ({ title, collection, content}) {
   return (
   <>
     {/* The button to open modal */}
-    <label htmlFor="my-modal-4" className="absolute bottom-0 right-0 p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+    <label htmlFor="my-modal-4" className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
     Edit
     </label>
     {/* Put this part before </body> tag */}
