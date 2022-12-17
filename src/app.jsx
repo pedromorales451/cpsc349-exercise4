@@ -36,14 +36,14 @@ return (
     </div>
     <div id = "pt">
       <ul id = "subjects">
-        <li id = "subject">
+        <li className = "subject">
           <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
             <h3 className="text-xl font-medium">Subject #1</h3>
             <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
               New Reading
             </button>
           </div>
-          <ul id = "readings">
+          <ul className = "readings">
             <li>
               <div className="mt-6 w-full space-y-6">
                 <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
@@ -56,7 +56,7 @@ return (
               </div>
             </li>
 
-            <li>
+            <li className = "readings">
               <div className="mt-6 w-full space-y-6">
                 <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
                   <div className="flex justify-between">
@@ -70,7 +70,7 @@ return (
           </ul>
         </li>
 
-      <li id = "subject">
+      <li className = "subject">
           <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
                 <h3 className="text-xl font-medium">Subject #2</h3>
                 <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
@@ -89,9 +89,10 @@ return (
                 </div>
               </div>
             </li>
+            <li id = "currentSubli"> </li>
           </ul>
-        </li>
-        <li id = "currentSubli"> </li>
+
+        //<li id = "currentSubli"> </li>
       </ul>
 
     </div>
@@ -157,31 +158,44 @@ function addSubject () {
 
   console.log("click")
   const div = document.createElement('div')
+  const div2 = document.createElement('div')
+  const div3 = document.createElement('div')
+  div.className = 'mt-6 w-full space-y-6 p-4 bg-gray-900 text-white w-full rounded-md space-y-2'
+  div2.className = 'flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8'
+  div3.className = 'text-xl font-medium'
   const subjectli = document.createElement('li')
-  subjectli.setAttribute('id','subject')
+  subjectli.className = 'subject'
+  //subjectli.setAttribute('className','subject')
   const readingul = document.createElement('ul')
   const readingli = document.createElement('li')
   const h3 = document.createElement('h3')
+  h3.className = 'text-xl font-medium'
   const btn = document.createElement('button')
 
-  var subcount = document.getElementById('pt').getElementsByTagName('li')
-  const sb = document.querySelector('#subjects')
-  var sbcount = sb.querySelectorAll('ul#subjects > li')
-  console.log(sbcount)
-  console.log(sbcount.length)
-  console.log(subcount.length)
+  // var subcount = document.getElementById('pt').getElementsByTagName('li')
+  // var container = document.querySelector('ul#subject')
+  // var sbcount = container.querySelectorAll('li')
+  // console.log(sbcount)
+  // console.log(sbcount.length)
+  // console.log(subcount.length)
 
-  const content = document.createTextNode('Subject')
+  var elem = document.getElementById('pt').getElementsByClassName('subject').length
+  var totalElem = elem + 1
+  var s_totalElem = document.createTextNode(totalElem.toString())
+
+  const content = document.createTextNode('Subject ')
   h3.appendChild(content)
+  h3.appendChild(s_totalElem)
   const contentbtn = document.createTextNode('New Reading')
   btn.appendChild(contentbtn)
-  subjectli.appendChild(h3)
-  subjectli.appendChild(btn)
+  div2.appendChild(h3)
+  div2.appendChild(btn)
+  readingli.appendChild(div)
   readingul.appendChild(readingli)
+  subjectli.appendChild(div2)
   subjectli.appendChild(readingul)
-  const ptDiv = document.getElementById('pt')
-  const currentSubli = document.getElementById('currentSubli')
+  const ptDiv = document.getElementById('subjects')
   //console.log(currentSubli)
-  ptDiv.insertBefore(subjectli, currentSubli.nextSibing)
+  ptDiv.appendChild(subjectli)
 
 }
