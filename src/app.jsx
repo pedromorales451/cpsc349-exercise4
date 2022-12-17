@@ -88,11 +88,12 @@ return (
 
 function Bio () {
   let bio = ''
-  console.log(pb.authStore.bio)
-  if (pb.authStore.bio === undefined) {
+  console.log(pb.authStore.model.bio)
+  
+  if (pb.authStore.model.bio === '') {
     bio = 'This user has not entered a bio yet.'
   } else {
-    bio = pb.authStore.bio
+    bio = pb.authStore.model.bio
   }
   return (
     <>
@@ -100,13 +101,13 @@ function Bio () {
       <p id="bio" className="text-medium text-gray-500 hover:bg-gray-200">
       {bio}
       </p>
-      <Form/>
+      <Form title="Edit Your Bio!" collection="users" content={bio}/>
     </div>
     </>
   )
 }
 
-function Form () {
+function Form ({ title, collection, content}) {
   return (
   <>
     {/* The button to open modal */}
@@ -117,20 +118,28 @@ function Form () {
     <input type="checkbox" id="my-modal-4" className="modal-toggle" />
     <label htmlFor="my-modal-4" className="modal cursor-pointer">
       <label className="modal-box relative" htmlFor="">
-        <h3 className="text-lg font-bold">
-          Congratulations random Internet user!
+        <h3 className="text-lg font-bold pb-4">
+          {title}
         </h3>
-        <p className="py-4">
-          You've been selected for a chance to get one year of subscription to use
-          Wikipedia for free!
-        </p>
+        <textarea id="text-area" className="w-full h-52 bg-blue-100 p-2" defaultValue={content}/>
+        <button className="btn bg-gray-900 text-white hover:bg-gray-700" onClick={updateBio}>
+          Submit
+        </button>
       </label>
     </label>
   </>
   )
 }
 
-function EditBio () {
-  console.log("click")
-}
+async function updateBio () {
+  const content = document.getElementById('text-area').value
+
+  try { 
+    const record = await pb.collection('users').update(pb.authStore.model.id, {
+      bio: content
+    });
+  } catch (error) {
+    console.log("Error Occured While Trying to Update Record.")
+  }
+} 
 

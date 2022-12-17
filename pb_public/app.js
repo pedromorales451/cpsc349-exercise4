@@ -19,17 +19,24 @@ function App() {
 }
 function Bio() {
   let bio = "";
-  console.log(pb.authStore.bio);
-  if (pb.authStore.bio === void 0) {
+  console.log(pb.authStore.model.bio);
+  if (pb.authStore.model.bio === "") {
     bio = "This user has not entered a bio yet.";
   } else {
-    bio = pb.authStore.bio;
+    bio = pb.authStore.model.bio;
   }
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "relative" }, /* @__PURE__ */ React.createElement("p", { id: "bio", className: "text-medium text-gray-500 hover:bg-gray-200" }, bio), /* @__PURE__ */ React.createElement(Form, null)));
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "relative" }, /* @__PURE__ */ React.createElement("p", { id: "bio", className: "text-medium text-gray-500 hover:bg-gray-200" }, bio), /* @__PURE__ */ React.createElement(Form, { title: "Edit Your Bio!", collection: "users", content: bio })));
 }
-function Form() {
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("label", { htmlFor: "my-modal-4", className: "absolute bottom-0 right-0 p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700" }, "Edit"), /* @__PURE__ */ React.createElement("input", { type: "checkbox", id: "my-modal-4", className: "modal-toggle" }), /* @__PURE__ */ React.createElement("label", { htmlFor: "my-modal-4", className: "modal cursor-pointer" }, /* @__PURE__ */ React.createElement("label", { className: "modal-box relative", htmlFor: "" }, /* @__PURE__ */ React.createElement("h3", { className: "text-lg font-bold" }, "Congratulations random Internet user!"), /* @__PURE__ */ React.createElement("p", { className: "py-4" }, "You've been selected for a chance to get one year of subscription to use Wikipedia for free!"))));
+function Form({ title, collection, content }) {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("label", { htmlFor: "my-modal-4", className: "absolute bottom-0 right-0 p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700" }, "Edit"), /* @__PURE__ */ React.createElement("input", { type: "checkbox", id: "my-modal-4", className: "modal-toggle" }), /* @__PURE__ */ React.createElement("label", { htmlFor: "my-modal-4", className: "modal cursor-pointer" }, /* @__PURE__ */ React.createElement("label", { className: "modal-box relative", htmlFor: "" }, /* @__PURE__ */ React.createElement("h3", { className: "text-lg font-bold pb-4" }, title), /* @__PURE__ */ React.createElement("textarea", { id: "text-area", className: "w-full h-52 bg-blue-100 p-2", defaultValue: content }), /* @__PURE__ */ React.createElement("button", { className: "btn bg-gray-900 text-white hover:bg-gray-700", onClick: updateBio }, "Submit"))));
 }
-function EditBio() {
-  console.log("click");
+async function updateBio() {
+  const content = document.getElementById("text-area").value;
+  try {
+    const record = await pb.collection("users").update(pb.authStore.model.id, {
+      bio: content
+    });
+  } catch (error) {
+    console.log("Error Occured While Trying to Update Record.");
+  }
 }
