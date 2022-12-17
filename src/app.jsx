@@ -88,7 +88,9 @@ return (
 
 function Bio () {
   let bio = ''
-  console.log(pb.authStore.model.bio)
+  pb.collection('users').subscribe(pb.authStore.model.id, function (e) {
+    document.getElementById('bio').innerHTML = e.record.bio
+  });
   
   if (pb.authStore.model.bio === '') {
     bio = 'This user has not entered a bio yet.'
