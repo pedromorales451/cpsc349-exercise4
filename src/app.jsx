@@ -70,15 +70,15 @@ return (
           </ul>
         </li>
 
-      <li className = "subject">
+        <li className = "subject">
           <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-                <h3 className="text-xl font-medium">Subject #2</h3>
-                <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
-                  New Reading
-                </button>
-              </div>
-        <ul>
-          <li>
+            <h3 className="text-xl font-medium">Subject #2</h3>
+            <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+              New Reading
+            </button>
+          </div>
+          <ul>
+            <li>
               <div className="mt-6 w-full space-y-6">
                 <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
                   <div className="flex justify-between">
@@ -91,17 +91,17 @@ return (
             </li>
             <li id = "currentSubli"> </li>
           </ul>
+        </li>
+        </ul>
 
-        //<li id = "currentSubli"> </li>
-      </ul>
+      </div>
+      <div className="flex justify-end mt-8">
+        <button onClick={() => addSubject()} id = "subjectbtn" className="px-3 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-500">
+          Add A New Subject
+        </button>
+      </div>
+    </main>
 
-    </div>
-    <div className="flex justify-end mt-8">
-      <button onClick={() => addSubject()} id = "subjectbtn" className="px-3 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-500">
-        Add A New Subject
-      </button>
-    </div>
-  </main>
   </>
 )
 }
@@ -155,7 +155,6 @@ function EditBio () {
 }
 
 function addSubject () {
-
   console.log("click")
   const div = document.createElement('div')
   const div2 = document.createElement('div')
@@ -197,5 +196,4 @@ function addSubject () {
   const ptDiv = document.getElementById('subjects')
   //console.log(currentSubli)
   ptDiv.appendChild(subjectli)
-
 }
