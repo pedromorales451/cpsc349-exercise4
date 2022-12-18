@@ -62,25 +62,37 @@ function Subject() {
   const subjects = [];
   for (let record in records) {
     if (records[record]["user"] == pb.authStore.model.id) {
-      subjects.push({ id: record, item: records[record]["subject"] });
+      subjects.push({ id: records[record]["id"], item: records[record]["subject"] });
     }
   }
   if (subjects.length === 0) {
     subjects.push({ id: "0", item: "My Subject" });
   }
   const name = subjects.map(
-    (subject) => /* @__PURE__ */ React.createElement("li", { className: "subject" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8" }, /* @__PURE__ */ React.createElement("h3", { key: subject.id, className: "text-xl font-medium" }, subject.item)), /* @__PURE__ */ React.createElement(AddReading, null))
+    (subject) => /* @__PURE__ */ React.createElement("li", { className: "subject" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8" }, /* @__PURE__ */ React.createElement("h3", { className: "text-xl font-medium" }, subject.item)), /* @__PURE__ */ React.createElement(AddReading, { arr: [subject.id, subject.item] }))
   );
   return /* @__PURE__ */ React.createElement(React.Fragment, null, name);
 }
-function AddReading() {
-  console.log("click");
+function AddReading({ arr }) {
   const [reading, setReadings] = React.useState([]);
   const addReading = (event) => {
     setReadings([
       ...reading,
       /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("div", { className: "mt-6 w-full space-y-6" }, /* @__PURE__ */ React.createElement("div", { className: "p-4 bg-gray-900 text-white w-full rounded-md space-y-2" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("h4", { className: "font-medium" }, "Reading"), /* @__PURE__ */ React.createElement("p", { className: "text-gray-500" }, "http://some-url.com")), /* @__PURE__ */ React.createElement("p", { className: "text-gray-400" }, "A short description of the reading."))))
     ]);
+    async function addRecord() {
+      if (arr[0] == 0) {
+        try {
+          const record = await pb.collection("subjects").create({
+            subject: arr[1],
+            user: pb.authStore.model.id
+          });
+        } catch (error) {
+          console.log("Failed to create subject");
+        }
+      }
+    }
+    addRecord();
   };
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("button", { className: "p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700", onClick: addReading }, "New Reading"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("ul", null, reading)));
 }

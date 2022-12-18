@@ -153,10 +153,10 @@ function Subject() {
   }, [])
 
   const subjects = []
-
+  
   for (let record in records) {
     if (records[record]["user"] == pb.authStore.model.id){
-      subjects.push({id: record, item: records[record]["subject"]})
+      subjects.push({id: records[record]["id"], item: records[record]["subject"]})
     }
   }
 
@@ -164,12 +164,13 @@ function Subject() {
     subjects.push({id: "0", item: "My Subject"})
   }
 
+  
   const name = subjects.map(subject => 
     <li className = "subject">
     <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-      <h3 key={subject.id} className="text-xl font-medium">{subject.item}</h3>
+      <h3 className="text-xl font-medium">{subject.item}</h3>
     </div>
-    <AddReading/>
+    <AddReading arr={[subject.id, subject.item]}/>
     </li>
   )
 
@@ -180,8 +181,7 @@ function Subject() {
   )
 }
 
-function AddReading() { 
-  console.log("click")
+function AddReading({arr}) { 
   const [reading, setReadings] = React.useState([])
 
   const addReading = (event) => {
@@ -198,8 +198,23 @@ function AddReading() {
         </div>
       </li>
     ])
-  }
   
+    async function addRecord() {
+      if (arr[0] == 0) {
+        try {
+            // create subject record 
+            const record = await pb.collection('subjects').create({
+              subject: arr[1],
+              user: pb.authStore.model.id
+            });
+        } catch (error) {
+            console.log("Failed to create subject") 
+        }
+      }
+    }
+    addRecord()
+  }
+
   return (
     <>
     <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700" onClick={addReading}>
