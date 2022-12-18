@@ -1,5 +1,9 @@
 const pb = new PocketBase('http://127.0.0.1:8090')
 
+function logout() {
+  pb.authStore.clear();
+}
+
 if (pb.authStore.isValid) {
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -21,7 +25,7 @@ return (
     </a>
     <div className="space-x-6">
       <a
-      className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white"
+      className="bg-gray-700 p-2 rounded-md font-medium hover:bg-gray-500 text-white" onClick={logout}
       href="./login.html"
       >
       Log Out
@@ -180,20 +184,23 @@ function Subject() {
     // call get()
     get()
   }, [])
-  
+
   const subjects = []
-  if (records.length === 0) {
-    subjects.push({id: 0, item: "My Subject"})
-  }
 
   for (let record in records) {
-    subjects.push({id: record, item: records[record]["subject"]})
+    if (records[record]["user"] == pb.authStore.model.id){
+      subjects.push({id: record, item: records[record]["subject"]})
+    }
+  }
+
+  if (subjects.length === 0) {
+    subjects.push({id: "0", item: "My Subject"})
   }
 
   const name = subjects.map(subject => 
     <li className = "subject">
     <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-      <h3 className="text-xl font-medium">{subject.item}</h3>
+      <h3 key={subject.id} className="text-xl font-medium">{subject.item}</h3>
       <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
         New Reading
       </button>
