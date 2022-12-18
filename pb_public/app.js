@@ -91,6 +91,14 @@ function AddReading({ arr }) {
           console.log("Failed to create subject");
         }
       }
+      try {
+        const record = await pb.collection("readings").create({
+          subject: arr[0],
+          description: "A short description of the reading."
+        });
+      } catch (error) {
+        console.log("could not create reading");
+      }
     }
     addRecord();
   };
