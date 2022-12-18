@@ -40,39 +40,6 @@ return (
     <div id = "pt">
       <ul id = "subjects">
         <Subject />
-        <li className = "subject">
-          <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
-            <h3 className="text-xl font-medium">Subject #1</h3>
-            <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
-              New Reading
-            </button>
-          </div>
-          <ul className = "readings">
-            <li>
-              <div className="mt-6 w-full space-y-6">
-                <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
-                  <div className="flex justify-between">
-                    <h4 className="font-medium">Reading #1</h4>
-                    <p className="text-gray-500">http://some-url.com</p>
-                  </div>
-                  <p className="text-gray-400">A short description of the reading.</p>
-                </div>
-              </div>
-            </li>
-
-            <li className = "readings">
-              <div className="mt-6 w-full space-y-6">
-                <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
-                  <div className="flex justify-between">
-                    <h4 className="font-medium">Reading #2</h4>
-                    <p className="text-gray-500">http://some-other-url.com</p>
-                  </div>
-                  <p className="text-gray-400">A short description of the reading.</p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
 
         <li className = "subject">
           <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
@@ -201,10 +168,8 @@ function Subject() {
     <li className = "subject">
     <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
       <h3 key={subject.id} className="text-xl font-medium">{subject.item}</h3>
-      <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
-        New Reading
-      </button>
     </div>
+    <AddReading/>
     </li>
   )
 
@@ -212,6 +177,40 @@ function Subject() {
    <>
     {name}
    </>
+  )
+}
+
+function AddReading() { 
+  console.log("click")
+  const [reading, setReadings] = React.useState([])
+
+  const addReading = (event) => {
+    setReadings([...reading, 
+      <li>
+        <div className="mt-6 w-full space-y-6">
+          <div className="p-4 bg-gray-900 text-white w-full rounded-md space-y-2">
+            <div className="flex justify-between">
+              <h4 className="font-medium">Reading</h4>
+              <p className="text-gray-500">http://some-url.com</p>
+            </div>
+            <p className="text-gray-400">A short description of the reading.</p>
+          </div>
+        </div>
+      </li>
+    ])
+  }
+  
+  return (
+    <>
+    <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700" onClick={addReading}>
+        New Reading
+      </button>
+    <div>
+    <ul>
+      {reading}
+    </ul>
+  </div>
+  </>
   )
 }
 
