@@ -35,6 +35,7 @@ return (
     </div>
     <div id = "pt">
       <ul id = "subjects">
+        <Subject />
         <li className = "subject">
           <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
             <h3 className="text-xl font-medium">Subject #1</h3>
@@ -162,6 +163,50 @@ async function updateBio () {
     console.log("Error Occured While Trying to Update Record.")
   }
 } 
+
+function Subject() {
+  const [records, setRecords] = React.useState(0)
+
+  React.useEffect(() => {
+    async function get() {
+      try {
+        const records = await pb.collection('subjects').getFullList();
+
+        setRecords(records)
+      } catch (error) {
+        console.log("Failed To Retreive Subjects")
+      }
+    }
+    // call get()
+    get()
+  }, [])
+  
+  const subjects = []
+  if (records.length === 0) {
+    subjects.push({id: 0, item: "My Subject"})
+  }
+
+  for (let record in records) {
+    subjects.push({id: record, item: records[record]["subject"]})
+  }
+
+  const name = subjects.map(subject => 
+    <li className = "subject">
+    <div className="flex justify-between items-baseline space-y-12 border-b-2 pb-2 mt-8">
+      <h3 className="text-xl font-medium">{subject.item}</h3>
+      <button className="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">
+        New Reading
+      </button>
+    </div>
+    </li>
+  )
+
+  return (
+   <>
+    {name}
+   </>
+  )
+}
 
 function addSubject () {
   console.log("click")
